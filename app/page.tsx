@@ -76,8 +76,8 @@ const Home = () => {
             style={{ transitionDelay: '400ms' }}
           >
             <p className="text-base sm:text-lg text-white/50 leading-relaxed font-light">
-              I build high-performance systems for competitive gaming and esports platforms.
-              Focused on crafting intuitive, powerful, and beautiful digital experiences.
+              I'm a software developer building tools and platforms for competitive gaming.
+              I focus on creating reliable and efficient systems for esports communities.
             </p>
           </div>
 
