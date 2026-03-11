@@ -1,0 +1,48 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const Tag = project.url ? 'a' : 'div';
+---
+
+{project.url ? (
+  <a
+    href={project.url}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="group block rounded-lg border border-surface-border bg-surface p-3 transition-all hover:border-navy-500 hover:bg-surface-hover"
+  >
+    <div class="flex items-start justify-between gap-2">
+      <h4 class="text-sm font-semibold text-text-primary group-hover:text-accent transition-colors">
+        {project.title}
+      </h4>
+      <svg class="h-3 w-3 shrink-0 text-text-muted opacity-0 group-hover:opacity-100 transition-opacity mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
+      </svg>
+    </div>
+    <p class="mt-1 text-xs text-text-secondary line-clamp-2">{project.description}</p>
+    {project.stack.length > 0 && (
+      <div class="mt-2 flex flex-wrap gap-1">
+        {project.stack.slice(0, 3).map((tech) => (
+          <span class="rounded bg-navy-800 px-1.5 py-0.5 text-[10px] text-text-muted">{tech}</span>
+        ))}
+      </div>
+    )}
+  </a>
+) : (
+  <div class="rounded-lg border border-surface-border bg-surface p-3">
+    <h4 class="text-sm font-semibold text-text-primary">{project.title}</h4>
+    <p class="mt-1 text-xs text-text-secondary line-clamp-2">{project.description}</p>
+    {project.stack.length > 0 && (
+      <div class="mt-2 flex flex-wrap gap-1">
+        {project.stack.slice(0, 3).map((tech) => (
+          <span class="rounded bg-navy-800 px-1.5 py-0.5 text-[10px] text-text-muted">{tech}</span>
+        ))}
+      </div>
+    )}
+  </div>
+)}

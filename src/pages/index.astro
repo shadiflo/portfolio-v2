@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PostCard from '../components/PostCard.astro';
+import ProfileCard from '../components/ProfileCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+import { projects } from '../data/projects';
+
+const allPosts = (await getCollection('posts')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const recentPosts = allPosts.slice(0, 6);
+const popularProjects = projects.filter((p) => p.url).slice(0, 4);
+---
+
+<BaseLayout>
+  <Header />
+
+  <div class="mx-auto max-w-7xl px-4 py-6">
+    <div class="flex flex-col gap-6 lg:flex-row">
+
+      <!-- LEFT SIDEBAR: Bio + Categories -->
+      <aside class="w-full shrink-0 lg:w-56 xl:w-64">
+        <div class="sticky top-20">
+          <ProfileCard />
+        </div>
+      </aside>
+
+      <!-- MIDDLE: Popular Projects + Recent Posts -->
+      <main class="flex-1 min-w-0 space-y-8">
+
+        <!-- Popular Projects -->
+        <section>
+          <div class="mb-4 flex items-center justify-between">
+            <h2 class="text-lg font-bold text-text-primary">Popular Projects</h2>
+            <a href="/projects" class="text-xs font-medium text-accent hover:text-accent-hover transition-colors">
+              View all &rarr;
+            </a>
+          </div>
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {popularProjects.map((project) => (
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group flex items-start gap-3 rounded-lg border border-surface-border bg-surface p-4 transition-all hover:border-navy-500 hover:bg-surface-hover"
+              >
+                <div class="shrink-0 mt-0.5 flex h-9 w-9 items-center justify-center rounded-lg bg-navy-800 text-accent">
+                  {project.category === 'esports' ? (
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  ) : (
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                  )}
+                </div>
+                <div class="min-w-0">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-sm font-semibold text-text-primary group-hover:text-accent transition-colors truncate">
+                      {project.title}
+                    </h3>
+                    <svg class="h-3 w-3 shrink-0 text-text-muted opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
+                    </svg>
+                  </div>
+                  <p class="mt-0.5 text-xs text-text-secondary line-clamp-2">{project.description}</p>
+                  <div class="mt-2 flex flex-wrap gap-1">
+                    {project.stack.slice(0, 3).map((tech) => (
+                      <span class="rounded bg-navy-800 px-1.5 py-0.5 text-[10px] text-text-muted">{tech}</span>
+                    ))}
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <!-- Recent Posts -->
+        <section>
+          <div class="mb-4 flex items-center justify-between">
+            <h2 class="text-lg font-bold text-text-primary">Recent Posts</h2>
+            <a href="/blog" class="text-xs font-medium text-accent hover:text-accent-hover transition-colors">
+              View all &rarr;
+            </a>
+          </div>
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {recentPosts.map((post) => (
+              <PostCard
+                title={post.data.title}
+                description={post.data.description}
+                date={post.data.date}
+                category={post.data.category}
+                slug={post.slug}
+                image={post.data.image}
+                tags={post.data.tags}
+              />
+            ))}
+          </div>
+
+          {allPosts.length === 0 && (
+            <div class="rounded-lg border border-surface-border bg-surface p-12 text-center">
+              <p class="text-text-muted">No posts yet. Add markdown files to <code class="text-accent">src/content/posts/</code></p>
+            </div>
+          )}
+        </section>
+
+      </main>
+
+      <!-- RIGHT SIDEBAR: All Projects list -->
+      <aside class="w-full shrink-0 lg:w-64 xl:w-72">
+        <div class="sticky top-20">
+          <div class="mb-3 flex items-center justify-between">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-text-muted">Projects</h3>
+            <a href="/projects" class="text-xs text-accent hover:text-accent-hover transition-colors">
+              All &rarr;
+            </a>
+          </div>
+          <div class="space-y-2">
+            {projects.map((project) => (
+              <ProjectCard project={project} />
+            ))}
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <Footer />
+</BaseLayout>

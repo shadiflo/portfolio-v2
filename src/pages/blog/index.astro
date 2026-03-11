@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PostCard from '../../components/PostCard.astro';
+import ProfileCard from '../../components/ProfileCard.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+import { projects } from '../../data/projects';
+
+const allPosts = (await getCollection('posts')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout title="Blog — Florin">
+  <Header />
+
+  <div class="mx-auto max-w-7xl px-4 py-6">
+    <div class="flex flex-col gap-6 lg:flex-row">
+
+      <!-- LEFT SIDEBAR -->
+      <aside class="w-full shrink-0 lg:w-56 xl:w-64">
+        <div class="sticky top-20">
+          <ProfileCard />
+        </div>
+      </aside>
+
+      <!-- MIDDLE: Posts -->
+      <main class="flex-1 min-w-0">
+        <h1 class="mb-4 text-2xl font-bold text-text-primary">All Posts</h1>
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {allPosts.map((post) => (
+            <PostCard
+              title={post.data.title}
+              description={post.data.description}
+              date={post.data.date}
+              category={post.data.category}
+              slug={post.slug}
+              image={post.data.image}
+              tags={post.data.tags}
+            />
+          ))}
+        </div>
+
+        {allPosts.length === 0 && (
+          <div class="rounded-lg border border-surface-border bg-surface p-12 text-center">
+            <p class="text-text-muted">No posts yet.</p>
+          </div>
+        )}
+      </main>
+
+      <!-- RIGHT SIDEBAR -->
+      <aside class="w-full shrink-0 lg:w-64 xl:w-72">
+        <div class="sticky top-20">
+          <div class="mb-3 flex items-center justify-between">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-text-muted">Projects</h3>
+            <a href="/projects" class="text-xs text-accent hover:text-accent-hover transition-colors">All &rarr;</a>
+          </div>
+          <div class="space-y-2">
+            {projects.slice(0, 5).map((project) => (
+              <ProjectCard project={project} />
+            ))}
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <Footer />
+</BaseLayout>

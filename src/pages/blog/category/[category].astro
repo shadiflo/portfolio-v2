@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import PostCard from '../../../components/PostCard.astro';
+import ProfileCard from '../../../components/ProfileCard.astro';
+import ProjectCard from '../../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+import { categories, getCategoryBySlug } from '../../../data/categories';
+import { projects } from '../../../data/projects';
+
+export async function getStaticPaths() {
+  return categories.map((cat) => ({
+    params: { category: cat.slug },
+  }));
+}
+
+const { category } = Astro.params;
+const cat = getCategoryBySlug(category!);
+
+const posts = (await getCollection('posts', ({ data }) => data.category === category)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout title={`${cat?.label ?? category} — Florin`}>
+  <Header />
+
+  <div class="mx-auto max-w-7xl px-4 py-6">
+    <div class="flex flex-col gap-6 lg:flex-row">
+
+      <!-- LEFT SIDEBAR -->
+      <aside class="w-full shrink-0 lg:w-56 xl:w-64">
+        <div class="sticky top-20">
+          <ProfileCard />
+        </div>
+      </aside>
+
+      <!-- MIDDLE -->
+      <main class="flex-1 min-w-0">
+        <div class="mb-4 flex items-center gap-3">
+          <a href="/blog" class="text-text-muted hover:text-accent transition-colors">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </a>
+          {cat && (
+            <h1 class="text-2xl font-bold" style={`color: ${cat.color};`}>{cat.label}</h1>
+          )}
+        </div>
+
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {posts.map((post) => (
+            <PostCard
+              title={post.data.title}
+              description={post.data.description}
+              date={post.data.date}
+              category={post.data.category}
+              slug={post.slug}
+              image={post.data.image}
+              tags={post.data.tags}
+            />
+          ))}
+        </div>
+
+        {posts.length === 0 && (
+          <div class="rounded-lg border border-surface-border bg-surface p-12 text-center">
+            <p class="text-text-muted">No posts in this category yet.</p>
+          </div>
+        )}
+      </main>
+
+      <!-- RIGHT SIDEBAR -->
+      <aside class="w-full shrink-0 lg:w-64 xl:w-72">
+        <div class="sticky top-20">
+          <div class="mb-3 flex items-center justify-between">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-text-muted">Projects</h3>
+            <a href="/projects" class="text-xs text-accent hover:text-accent-hover transition-colors">All &rarr;</a>
+          </div>
+          <div class="space-y-2">
+            {projects.slice(0, 5).map((project) => (
+              <ProjectCard project={project} />
+            ))}
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <Footer />
+</BaseLayout>

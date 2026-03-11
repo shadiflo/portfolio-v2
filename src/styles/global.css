@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+/* ── Theme — Light Cream ── */
+@theme inline {
+  /* Background scale (light → slightly darker) */
+  --color-navy-950: #EDE8D0;
+  --color-navy-900: #E3DFC8;
+  --color-navy-800: #D8D3BB;
+  --color-navy-700: #C9C5B1;
+  --color-navy-600: #B0AC99;
+  --color-navy-500: #918D7E;
+
+  /* Cards & surfaces */
+  --color-surface: #FAF9F4;
+  --color-surface-hover: #F2EFE4;
+  --color-surface-border: #D5D1BD;
+
+  /* Text */
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #4F4D46;
+  --color-text-muted: #787569;
+
+  /* Accent — orange */
+  --color-accent: #f97316;
+  --color-accent-hover: #ea6a10;
+
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ── Base ── */
+body {
+  background-color: var(--color-navy-950);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-navy-950); }
+::-webkit-scrollbar-thumb { background: var(--color-navy-600); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-navy-500); }
+
+/* ── Prose / Markdown ── */
+.prose {
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+}
+.prose h1, .prose h2, .prose h3 {
+  color: var(--color-text-primary);
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.prose h1 { font-size: 1.875rem; }
+.prose h2 { font-size: 1.5rem; }
+.prose h3 { font-size: 1.25rem; }
+.prose p { margin-bottom: 1rem; }
+.prose a { color: var(--color-accent); text-decoration: underline; }
+.prose a:hover { color: var(--color-accent-hover); }
+
+/* Inline code */
+.prose code {
+  background: #E3DFC8;
+  color: #1a1a1a;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.875em;
+}
+/* Code blocks — Shiki handles syntax colors, we style the container */
+.prose pre {
+  background: #FAF9F4 !important;
+  border: 1px solid #D5D1BD;
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+.prose pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.875em;
+}
+
+.prose ul, .prose ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+.prose ul { list-style-type: disc; }
+.prose ol { list-style-type: decimal; }
+.prose li { margin-bottom: 0.25rem; }
+.prose blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding-left: 1rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+.prose img { border-radius: 8px; margin: 1rem 0; }
+.prose hr { border-color: var(--color-surface-border); margin: 2rem 0; }
