@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# shadi.dev portfolio
 
-## Getting Started
+A static portfolio built with Astro and Tailwind CSS. The homepage presents Florin's profile, about section, and projects. Existing blog posts remain available at /blog/.
 
-First, run the development server:
+## Local development
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Install dependencies and start Astro:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+    pnpm install
+    pnpm dev
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a production build:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    pnpm build
 
-## Learn More
+Profile copy and links live in src/data/profile.ts. Project descriptions, links, technologies, and featured project selection live in src/data/projects.ts. Static project artwork is in public/.
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy to Cloudflare Workers
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The Wrangler configuration serves Astro's static dist/ output as Workers Static Assets. Build and deploy with:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    pnpm run deploy:workers
 
-## Deploy on Vercel
+On the first run, Wrangler may ask you to authenticate with Cloudflare. To preview the built site locally with Wrangler:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    pnpm build
+    pnpm dlx wrangler dev
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+After the Worker is live, attach shadi.dev as a custom domain in Cloudflare. Keep the current VPS site online until the Worker and domain both serve the new site correctly. Then disable only the shadi.dev Nginx site configuration; leave the Nginx service running if it serves other sites. Do not change DNS until the Cloudflare deployment is ready.

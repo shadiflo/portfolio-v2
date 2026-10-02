@@ -1,5 +1,5 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 
 interface Props {
   title?: string;
@@ -7,9 +7,10 @@ interface Props {
 }
 
 const {
-  title = "Florin — Blog & Projects",
-  description = "Tutorials, configs, and projects by Florin Stefanescu — esports tools, bots, CS2, frontend & backend dev.",
+  title = "Florin Stefanescu — Projects & Portfolio",
+  description = "Florin Stefanescu is an IT mechanic and software developer building practical tools for competitive gaming and esports.",
 } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://shadi.dev");
 ---
 
 <!doctype html>
@@ -18,10 +19,24 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#0e0e0d" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="https://shadi.dev/images/shadiflo.jpg" />
+    <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script is:inline>
+      try {
+        if (localStorage.getItem("shadidev-theme") === "light") {
+          document.documentElement.classList.add("light");
+        }
+      } catch {}
+    </script>
     <title>{title}</title>
   </head>
   <body class="min-h-screen antialiased">

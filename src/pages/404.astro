@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout title="Page not found — shadi.dev">
+  <Header />
+  <main class="site-main error-page" id="home">
+    <p class="eyebrow">404 / Not found</p>
+    <h1 class="page-title">This page isn't in the cabinet.</h1>
+    <p class="page-intro">The link may have moved. Head back to the portfolio or browse the projects.</p>
+    <div class="error-page__links">
+      <a class="work-card__link" href="/">Portfolio <span aria-hidden="true">↗</span></a>
+      <a class="work-card__link" href="/projects/">Projects <span aria-hidden="true">↗</span></a>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
