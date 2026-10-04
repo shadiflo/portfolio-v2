@@ -8,6 +8,7 @@ export const profile = {
   email: "stefanescuf@ymail.com",
   openTo: "Collaborations",
   signature: "Florin",
+  signatureImage: null,
   skills: [
     { category: "Languages", items: ["JavaScript", "TypeScript", "Go", "Python"] },
     { category: "Web", items: ["React", "Next.js", "Node.js", "Tailwind CSS"] },
