@@ -164,8 +164,10 @@
   grid-template-columns: 240px minmax(0, 1fr);
   gap: clamp(2.25rem, 4vw, 3.25rem);
   max-width: 1200px;
+  padding-top: 2rem;
   padding-inline: 2.5rem;
 }
+.portfolio-content { min-width: 0; max-width: 770px; }
 .portfolio-sidebar { min-width: 0; }
 .portfolio-sidebar__inner {
   position: sticky;
@@ -186,9 +188,9 @@
 .profile-hero { padding: 0 0 .25rem; }
 .profile-hero__avatar {
   display: block;
-  width: 76px;
-  height: 76px;
-  margin-bottom: 1.5rem;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 1rem;
   border: 1px solid var(--border-line);
   border-radius: 50%;
   object-fit: cover;
@@ -199,7 +201,7 @@
   margin: 0;
   color: var(--muted);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: .12em;
   line-height: 1.6;
   text-transform: uppercase;
@@ -207,40 +209,40 @@
 .profile-hero__name {
   margin: .4rem 0 0;
   color: var(--text);
-  font-size: clamp(2.15rem, 7vw, 2.75rem);
+  font-size: clamp(2rem, 4vw, 2.5rem);
   font-weight: 600;
   letter-spacing: -.045em;
   line-height: 1.08;
 }
 .profile-hero__headline {
   max-width: 58ch;
-  margin: .85rem 0 0;
+  margin: .7rem 0 0;
   color: var(--muted);
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: 14px;
+  line-height: 1.65;
   text-wrap: pretty;
 }
 .profile-details {
   display: grid;
-  gap: 1rem;
-  max-width: 920px;
-  margin: 2rem 0 0;
-  font-size: 22px;
+  gap: .55rem;
+  max-width: 770px;
+  margin: 1.5rem 0 0;
+  font-size: 17px;
 }
 .profile-details__row {
   display: grid;
-  grid-template-columns: 155px minmax(0, 1fr);
-  min-height: 43px;
+  grid-template-columns: 130px minmax(0, 1fr);
+  min-height: 32px;
   align-items: center;
-  gap: .8rem;
+  gap: .65rem;
 }
 .profile-details dt {
   display: flex;
   align-items: center;
-  gap: .7rem;
+  gap: .45rem;
   color: var(--muted);
 }
-.profile-details dt span { width: 34px; font-size: 19px; text-align: center; }
+.profile-details dt span { width: 24px; font-size: 16px; text-align: center; }
 .profile-details dd { display: flex; min-width: 0; align-items: center; gap: .55rem; margin: 0; color: var(--text); }
 .profile-details a {
   color: var(--text);
@@ -256,8 +258,8 @@
 .availability-pill {
   display: inline-flex;
   align-items: center;
-  gap: .55rem;
-  padding: .28rem .65rem;
+  gap: .45rem;
+  padding: .22rem .55rem;
   border: 1px solid var(--availability-border);
   border-radius: 6px;
   background: var(--availability-bg);
@@ -266,16 +268,16 @@
   line-height: 1.35;
 }
 .availability-pill__dot {
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: currentColor;
 }
 .profile-details__email { flex-wrap: wrap; }
 .copy-email {
   display: inline-grid;
-  width: 27px;
-  height: 27px;
+  width: 23px;
+  height: 23px;
   flex: 0 0 auto;
   place-items: center;
   border: 0;
@@ -283,7 +285,7 @@
   background: transparent;
   color: var(--muted);
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1;
 }
 .copy-email:hover { background: var(--bg-elevated); color: var(--text); }
@@ -620,13 +622,12 @@
   .site-header { padding-inline: 2.5rem; }
   .site-main { padding-inline: 2rem; }
   .site-footer__inner { padding-inline: 2rem; }
-  .profile-hero { padding-top: .5rem; }
 }
 @media (max-width: 960px) and (min-width: 901px) {
   .site-main--portfolio { grid-template-columns: 210px minmax(0, 1fr); gap: 2rem; padding-inline: 2rem; }
   .site-header { padding-inline: 2rem; }
-  .profile-details { font-size: 20px; }
-  .profile-details__row { grid-template-columns: 135px minmax(0, 1fr); }
+  .profile-details { font-size: 16px; }
+  .profile-details__row { grid-template-columns: 125px minmax(0, 1fr); min-height: 32px; gap: .6rem; }
 }
 @media (max-width: 900px) {
   .site-nav__link[href="/blog/"] { display: none; }
@@ -669,8 +670,8 @@
   .portfolio-mobile-nav__projects a:hover { color: var(--text); background: var(--bg-hover); }
 }
 @media (max-width: 760px) {
-  .profile-details { font-size: 17px; }
-  .profile-details__row { grid-template-columns: 155px minmax(0, 1fr); min-height: 42px; gap: .75rem; }
+  .profile-details { font-size: 16px; }
+  .profile-details__row { grid-template-columns: 125px minmax(0, 1fr); min-height: 34px; gap: .6rem; }
 }
 @media (max-width: 480px) {
   .site-header { padding-inline: 1rem; }
