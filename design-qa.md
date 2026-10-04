@@ -1,44 +1,45 @@
-# Visual QA — Portfolio profile update
+# Project folder design QA
 
-## Source and implementation
+## Comparison setup
 
-- Source visual: /Users/flo/Desktop/Screenshot 2026-10-02 alle 22.51.03.png (1116 × 756 px).
-- Implementation: http://localhost:4321/, captured in the Codex in-app browser at a 1116 × 756 viewport.
-- Implementation screenshot file: no file path was exposed by the browser capture API; the rendered capture was reviewed in the browser and in the temporary side-by-side comparison.
-- State: desktop homepage, dark theme. The source is a profile-details crop; the implementation is the full homepage with the same details component below its identity intro.
-- Comparison size: each 1116 × 756 view was displayed at 50% in the temporary side-by-side comparison. Both were scaled uniformly; neither was cropped for that comparison. The browser did not expose its device scale factor.
+- Source visual truth: [Francesco Giannicola — Selected work](https://francescogiannicola.com/#projects), captured in the Codex In-app Browser.
+- Implementation: [Florin Stefanescu — Selected projects](http://localhost:4321/#projects), captured in the Codex In-app Browser. The browser capture is available in this task; the browser tool does not export screenshots to a project file.
+- Viewport: 1270 × 714 px for both captures.
+- Screenshot dimensions: source 1270 × 714 px; implementation 1270 × 714 px.
+- CSS viewport and pixel density: inferred as 1270 × 714 CSS px from the browser capture; device scale factor was not exposed. No image resampling was applied.
+- State: dark theme, projects section, idle cards. A second paired capture checked the first folder after focus and Escape.
+- Comparison method: source and implementation screenshots were emitted together in one browser-tool response for both idle and focused states.
 
 ## Findings
 
-- No actionable P0, P1, or P2 visual issues remain in the profile-details component.
-- The detail rows use the same two-column structure, emoji-led labels, underlined email and GitHub links, copy-email control, green collaboration pill, dark palette, and similar row spacing as the reference.
-- The reference contains another person's age, degree, CV, and social accounts. Those details were not copied because Florin has not supplied equivalent information. Education is deferred until he sends the school details.
-- The full implementation has the avatar and intro above the details, while the source image is cropped to the details area. This is an intentional context difference; the comparison is focused on the matching component.
+- No actionable P0, P1, or P2 differences remain.
+- [P3] Most folders use the reference component's title-on-paper fallback because the project currently has artwork for only SuperClub.gg and FaceitVisuals. Add project screenshots later if Florin wants every fan of papers to show a distinct preview.
+
+## Required fidelity surfaces
+
+- **Typography:** DM Sans headings and card labels match the source hierarchy. Desktop section headings use 28 px; folder titles use 15 px, descriptions 12 px, and right-side labels 11 px. Compact section headings use 21 px to fit beside the page link.
+- **Spacing and layout:** Two columns, 692 px maximum grid width, 24 px column gap, 48 px row gap, 228 px folder cover, 16 px card radius, and paper fan sizing follow the source component.
+- **Color and tokens:** Dark page background, charcoal covers, translucent labels, fine white borders, and subdued secondary text follow the source palette.
+- **Images:** The two supplied project images are used as previews. Other projects use the same text fallback the reference component uses when no preview exists.
+- **Copy and content:** Cards use Florin's project names, concise subtitles derived from his descriptions, and category labels where the reference uses a year. The detail sheet retains each full description, technology stack, and live project link when one exists.
+
+## Interaction checks
+
+- Folder fan-out responds to pointer hover and keyboard focus, with reduced-motion support.
+- Selecting PixelCut opens the details sheet with its description, React / FFmpeg.wasm / Tailwind CSS tags, and project link; Escape closes it.
+- The portfolio file tree selects a project, updates the hash, and scrolls to its folder.
+- The Projects page and home page share the same interactive folder component.
 
 ## Comparison history
 
-1. The first rendered version used 20 px detail text, narrower content, and tighter rows; the details looked smaller than the reference.
-2. Increased desktop detail text to 28 px, widened the main content and label column, and set row spacing to match the reference rhythm.
-3. Re-captured the implementation at 1116 × 756 and compared the source and implementation side by side. The label/value alignment, text scale, green availability badge, email, and GitHub rows now align closely. Responsive rules reduce the type and column width on narrow screens.
+1. The first desktop comparison showed a grid wider than the source and long card subtitles clipped mid-sentence. The grid was capped at 692 px and each card received a concise subtitle. The paired 1270 × 714 capture then showed matching card widths and clean single-line metadata.
+2. The first desktop comparison also showed the Selected projects heading at 19 px while the source uses 28 px. The section heading now uses the source size on desktop and 21 px on compact screens. The final paired capture shows the heading hierarchy and card dimensions aligned.
 
-## Fidelity surfaces
+## Implementation checklist
 
-- Typography: DM Sans for detail text; 28 px desktop detail rows with smaller responsive sizes.
-- Layout: two-column detail rows with approximately 68 px row rhythm; project, skills, experience, and contact sections follow below.
-- Colors: near-black page background and muted text; collaboration state uses a green tint like the reference.
-- Imagery: the existing profile portrait and project images are retained. Emoji labels were used as requested.
-- Copy: email, GitHub handle, location, and role use the portfolio's confirmed profile details. No age, degree, CV, or unprovided social URLs were invented.
+- [x] Copy the source fan-out hover animation and paper stack proportions.
+- [x] Keep project descriptions and stacks in the open detail sheet instead of adding a stack row to the cards.
+- [x] Preserve project IDs for the file-tree navigation.
+- [x] Check desktop and narrow-screen layouts, open and close states, and the local build.
 
-## Verification
-
-- pnpm build completed and generated 14 static pages.
-- git diff --check passed.
-- Browser console error log returned no errors.
-- Contact navigation and contact/GitHub links were inspected in the rendered page. The copy control was not clicked, to avoid replacing the user's clipboard.
-
-## Follow-up polish
-
-- Add the Education section when Florin provides school, qualification, and dates.
-- Add a CV or more social links if he supplies those URLs.
-
-final result: passed
+**final result: passed**

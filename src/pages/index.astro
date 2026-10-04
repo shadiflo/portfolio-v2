@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import ProjectWorkCard from "../components/ProjectWorkCard.astro";
+import ProjectFolders from "../components/ProjectFolders";
 import PortfolioTree from "../components/PortfolioTree";
 import { profile } from "../data/profile";
 import { projects } from "../data/projects";
@@ -133,9 +133,7 @@ import { projects } from "../data/projects";
           <a class="section-heading__more" href="/projects/">All projects <span aria-hidden="true">↗</span></a>
         </div>
 
-        <div class="work-grid">
-          {projects.map((project) => <ProjectWorkCard project={project} />)}
-        </div>
+        <ProjectFolders projects={projects} client:visible />
       </section>
 
       <hr class="section-divider" />
